@@ -1,0 +1,6 @@
+@WSCConvertisseur_HostAddress = http://localhost:5111
+
+GET {{WSCConvertisseur_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

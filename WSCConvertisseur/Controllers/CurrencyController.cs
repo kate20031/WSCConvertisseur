@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WSCConvertisseur.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -26,10 +27,15 @@ namespace WSCConvertisseur.Controllers
         }
 
         // GET api/<CurrencyController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{id}", Name = "GetCurrency")]
+        public ActionResult<Currency> GetById(int id)
         {
-            return "value";
+            Currency? currency = currencies.FirstOrDefault((d) => d.Id == id);
+            if (currency == null)
+            {
+                return NotFound();
+            }
+            return currency;
         }
 
         // POST api/<CurrencyController>

@@ -1,4 +1,5 @@
-﻿namespace WSCConvertisseur.Models
+﻿using System.ComponentModel.DataAnnotations;
+namespace WSCConvertisseur.Models
 {
     public class Currency
     {
@@ -17,6 +18,7 @@
 
 
         public int Id { get; set; }
+        [Required]
         public string CurrencyName { get; set; }
         public double Rate { get; set; }
     }

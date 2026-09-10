@@ -40,8 +40,14 @@ namespace WSCConvertisseur.Controllers
 
         // POST api/<CurrencyController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ActionResult<Currency> Post([FromBody] Currency currency)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            currencies.Add(currency);
+            return CreatedAtRoute("GetCurrency", new { id = currency.Id }, currency);
         }
 
         // PUT api/<CurrencyController>/5
@@ -52,8 +58,17 @@ namespace WSCConvertisseur.Controllers
 
         // DELETE api/<CurrencyController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult<Currency> Delete(int id)
         {
+            Currency? currency = currencies.FirstOrDefault((d) => d.Id == id);
+            if (currency == null)
+            {
+                return NotFound();
+            }
+            currencies.Remove(currency);
+
+            return currency;
+
         }
     }
 }

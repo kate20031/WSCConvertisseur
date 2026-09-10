@@ -52,8 +52,26 @@ namespace WSCConvertisseur.Controllers
 
         // PUT api/<CurrencyController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public ActionResult Put(int id, [FromBody] Currency currency)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            if (id != currency.Id)
+            {
+                return BadRequest();
+            }
+
+            int index = currencies.FindIndex((d) => d.Id == id);
+            
+            if (index < 0)
+            {
+                return NotFound();
+            }
+
+            currencies[index] = currency;
+            return NoContent();
         }
 
         // DELETE api/<CurrencyController>/5

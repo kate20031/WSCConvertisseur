@@ -3,6 +3,19 @@ namespace WSCConvertisseur.Models
 {
     public class Currency
     {
+        public override bool Equals(object? obj)
+        {
+            return obj is Currency currency &&
+                   Id == currency.Id &&
+                   CurrencyName == currency.CurrencyName &&
+                   Rate == currency.Rate;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Id, CurrencyName, Rate);
+        }
+
         public Currency(int id, string currencyName, double rate)
         {
             Id = id;
